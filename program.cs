@@ -104,8 +104,64 @@ namespace StudentRosterApplication
             else
                 Console.WriteLine("Student not found.");
         }
+
+        // =========================
+// TASK 4
+// =========================
+static void AddNewStudent(Dictionary<string, List<string>> roster)
+{
+    Console.Write("Enter new Student ID: ");
+    string id = Console.ReadLine();
+
+    if (roster.ContainsKey(id))
+    {
+        Console.WriteLine("Student ID already exists.");
+        return;
+    }
+
+    Console.Write("Enter Student Name: ");
+    string name = Console.ReadLine();
+
+    roster.Add(id, new List<string> { name });
+
+    Console.WriteLine("New student added successfully.");
+}
+
+// =========================
+// TASK 5
+// =========================
+static void AppendStudentValue(Dictionary<string, List<string>> roster)
+{
+    Console.Write("Enter Student ID: ");
+    string id = Console.ReadLine();
+
+    if (!roster.ContainsKey(id))
+    {
+        Console.WriteLine("Student ID not found.");
+        return;
+    }
+
+    Console.Write("Enter another value (course, club, nickname, etc.): ");
+    string value = Console.ReadLine();
+
+    roster[id].Add(value);
+
+    Console.WriteLine("Value added successfully.");
+}
+
+// =========================
+// TASK 6
+// =========================
+static void SortRosterKeys(Dictionary<string, List<string>> roster)
+{
+    Console.WriteLine("\nStudents Sorted by Student ID:");
+
+    foreach (var student in roster.OrderBy(student => student.Key))
+    {
+        Console.WriteLine($"{student.Key}: {string.Join(", ", student.Value)}");
     }
 }
+
 
 
         
