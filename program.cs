@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StudentRosterApplication
 {
@@ -10,6 +11,11 @@ namespace StudentRosterApplication
             // Key: Student ID, Value: List of student names
             Dictionary<string, List<string>> studentRoster = new Dictionary<string, List<string>>();
 
+            // Populate the dictionary
+            studentRoster.Add("1001", new List<string> { "Alice" });
+            studentRoster.Add("1002", new List<string> { "Bob" });
+            studentRoster.Add("1003", new List<string> { "Charlie" });
+
             bool keepRunning = true;
 
             while (keepRunning)
@@ -18,29 +24,39 @@ namespace StudentRosterApplication
                 Console.WriteLine("1. Add Student");
                 Console.WriteLine("2. Remove Student");
                 Console.WriteLine("3. View Roster");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Append Student Values");
+                Console.WriteLine("5. Sort Roster Keys");
+                Console.WriteLine("6. Exit");
                 Console.Write("Select an option: ");
 
                 string input = Console.ReadLine();
 
-                switch (input)
+               switch (input)
                 {
                     case "1":
                         AddStudent(studentRoster);
                         break;
-
+                
                     case "2":
                         RemoveStudent(studentRoster);
                         break;
-
+                
                     case "3":
                         ViewRoster(studentRoster);
                         break;
-
+                
                     case "4":
+                        AppendStudentValue(studentRoster);
+                        break;
+                
+                    case "5":
+                        SortRosterKeys(studentRoster);
+                        break;
+                
+                    case "6":
                         keepRunning = false;
                         break;
-
+                
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
@@ -53,21 +69,21 @@ namespace StudentRosterApplication
         // =========================
         static void AddStudent(Dictionary<string, List<string>> roster)
         {
-            // Ask for student ID and store
-            Console.Write("Enter Student ID: ");
-            string id = Console.ReadLine();
-
-            // Ask for student name and store
-            Console.Write("Enter Student Name: ");
-            string name = Console.ReadLine();
-
-            // check if id already exists, and if not add to lsit
-            if (!roster.ContainsKey(id))
-                roster[id] = new List<string>();
-
-            roster[id].Add(name);
-
-            Console.WriteLine("Student added successfully.");
+                Console.Write("Enter new Student ID: ");
+                string id = Console.ReadLine();
+            
+                if (roster.ContainsKey(id))
+                {
+                    Console.WriteLine("Student ID already exists.");
+                    return;
+                }
+            
+                Console.Write("Enter Student Name: ");
+                string name = Console.ReadLine();
+            
+                roster.Add(id, new List<string> { name });
+            
+                Console.WriteLine("New student added successfully.");
         }
 
         // =========================
@@ -106,61 +122,39 @@ namespace StudentRosterApplication
         }
 
         // =========================
-// TASK 4
-// =========================
-static void AddNewStudent(Dictionary<string, List<string>> roster)
-{
-    Console.Write("Enter new Student ID: ");
-    string id = Console.ReadLine();
-
-    if (roster.ContainsKey(id))
-    {
-        Console.WriteLine("Student ID already exists.");
-        return;
-    }
-
-    Console.Write("Enter Student Name: ");
-    string name = Console.ReadLine();
-
-    roster.Add(id, new List<string> { name });
-
-    Console.WriteLine("New student added successfully.");
-}
-
-// =========================
-// TASK 5
-// =========================
-static void AppendStudentValue(Dictionary<string, List<string>> roster)
-{
-    Console.Write("Enter Student ID: ");
-    string id = Console.ReadLine();
-
-    if (!roster.ContainsKey(id))
-    {
-        Console.WriteLine("Student ID not found.");
-        return;
-    }
-
-    Console.Write("Enter another value (course, club, nickname, etc.): ");
-    string value = Console.ReadLine();
-
-    roster[id].Add(value);
-
-    Console.WriteLine("Value added successfully.");
-}
-
-// =========================
-// TASK 6
-// =========================
-static void SortRosterKeys(Dictionary<string, List<string>> roster)
-{
-    Console.WriteLine("\nStudents Sorted by Student ID:");
-
-    foreach (var student in roster.OrderBy(student => student.Key))
-    {
-        Console.WriteLine($"{student.Key}: {string.Join(", ", student.Value)}");
-    }
-}
+        // TASK 5
+        // =========================
+        static void AppendStudentValue(Dictionary<string, List<string>> roster)
+        {
+            Console.Write("Enter Student ID: ");
+            string id = Console.ReadLine();
+        
+            if (!roster.ContainsKey(id))
+            {
+                Console.WriteLine("Student ID not found.");
+                return;
+            }
+        
+            Console.Write("Enter another value (course, club, nickname, etc.): ");
+            string value = Console.ReadLine();
+        
+            roster[id].Add(value);
+        
+            Console.WriteLine("Value added successfully.");
+        }
+        
+        // =========================
+        // TASK 6
+        // =========================
+        static void SortRosterKeys(Dictionary<string, List<string>> roster)
+        {
+            Console.WriteLine("\nStudents Sorted by Student ID:");
+        
+            foreach (var student in roster.OrderBy(student => student.Key))
+            {
+                Console.WriteLine($"{student.Key}: {string.Join(", ", student.Value)}");
+            }
+        }
 
 
 
