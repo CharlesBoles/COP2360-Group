@@ -53,12 +53,15 @@ namespace StudentRosterApplication
         // =========================
         static void AddStudent(Dictionary<string, List<string>> roster)
         {
+            // Ask for student ID and store
             Console.Write("Enter Student ID: ");
             string id = Console.ReadLine();
 
+            // Ask for student name and store
             Console.Write("Enter Student Name: ");
             string name = Console.ReadLine();
 
+            // check if id already exists, and if not add to lsit
             if (!roster.ContainsKey(id))
                 roster[id] = new List<string>();
 
@@ -90,9 +93,12 @@ namespace StudentRosterApplication
         // =========================
         static void RemoveStudent(Dictionary<string, List<string>> roster)
         {
+            // read ID inputted
             Console.Write("Enter Student ID to remove: ");
             string id = Console.ReadLine();
 
+            // if ID exists, remove
+            // if doesn't exist, inform user
             if (roster.Remove(id))
                 Console.WriteLine("Student removed.");
             else
