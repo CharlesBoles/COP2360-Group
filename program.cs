@@ -155,7 +155,8 @@ namespace StudentRosterApplication
                 Console.WriteLine($"{student.Key}: {string.Join(", ", student.Value)}");
             }
         }
-
+    }
+}
 
 
         
